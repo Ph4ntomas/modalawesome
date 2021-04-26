@@ -123,6 +123,12 @@ local function init(args)
         keypressed_callback = grabkey
     }
 
+    client.connect_signal("unmanage", function(c)
+        if #awful.screen.focused().clients == 0 and mode_box:get_text() == args.stop_name then
+            startmode(args.default_mode)
+        end
+    end)
+
     modes = process_modes(args.modes, args.stop_name)
     startmode(args.default_mode)
 end
